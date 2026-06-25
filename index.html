@@ -145,6 +145,26 @@
         <div class="status">点击开始</div>
     </div>
     <script>
+        <!-- 数学公式渲染器（异步加载，不卡手机） -->
+<script>
+// 等页面所有内容加载完再加载公式渲染器，避免卡交互
+window.addEventListener('load', function() {
+    // 加载MathJax，只渲染公式，不扫描其他内容
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+    script.async = true;
+    // 配置MathJax，只识别$包裹的行内公式，减少性能消耗
+    window.MathJax = {
+        tex: { inlineMath: [['$', '$']] },
+        startup: { typeset: false } // 手动控制渲染，避免重复扫描
+    };
+    script.onload = function() {
+        // 只渲染题目和解析里的公式，不扫其他地方
+        MathJax.typeset(['.q-title', '.answer-box']);
+    };
+    document.body.appendChild(script);
+});
+</script>
 // ================= 1. 基础数据（200章+50道题，可根据需要补充） =================
 // 章节列表（200章，这里先列前10章，你可以后续补充剩下的190章）
 const chapters = [
