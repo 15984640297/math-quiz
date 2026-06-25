@@ -144,31 +144,10 @@
         <div class="time">00:00</div>
         <div class="status">点击开始</div>
     </div>
-    <script>
-        <!-- 数学公式渲染器（异步加载，不卡手机） -->
 <script>
-// 等页面所有内容加载完再加载公式渲染器，避免卡交互
-window.addEventListener('load', function() {
-    // 加载MathJax，只渲染公式，不扫描其他内容
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-    script.async = true;
-    // 配置MathJax，只识别$包裹的行内公式，减少性能消耗
-    window.MathJax = {
-        tex: { inlineMath: [['$', '$']] },
-        startup: { typeset: false } // 手动控制渲染，避免重复扫描
-    };
-    script.onload = function() {
-        // 只渲染题目和解析里的公式，不扫其他地方
-        MathJax.typeset(['.q-title', '.answer-box']);
-    };
-    document.body.appendChild(script);
-});
-</script>
 // ================= 1. 基础数据（200章+50道题，可根据需要补充） =================
 // 章节列表（200章，这里先列前10章，你可以后续补充剩下的190章）
-const chapters = [
-     "等式变形", "不等式解法", "集合概念", "子集概念", "交并补运算", "集合综合大题练习", "集合易错大盘点", "集合新定义问题", "充分必要条件", "全称与存在量词",
+const chapters = [  "因式分解","""等式变形", "不等式解法", "集合概念", "子集概念", "交并补运算", "集合综合大题练习", "集合易错大盘点", "集合新定义问题", "充分必要条件", "全称与存在量词",
     "不等式的性质", "基本不等式", "基本不等式进阶", "二次函数的a、b、c、Δ和韦达", "二次函数图像分布问题", "引课: 高中为什么用f(x)", "函数概念+定义域", "函数解析式求法", "分式函数的值域", "函数单调性",
     "函数奇偶性", "单调奇偶性复习", "单调奇偶性拓展", "抽象、恒成立、双函数题", "幂函数", "分数指数幂的计算", "指数函数", "对数定义+基本运算规则", "对数换底公式+练习", "对数函数",
     "初等函数知识串讲", "指数、对数大小比较题型", "初等函数图像与性质考点解析", "指数、对数的增长力量", "同底问题的解题思路总结", "零点存在定理的应用", "复合函数零点问题", "分段函数最值思路", "分段函数的零点问题", "抽象函数零点判断",
@@ -187,12 +166,12 @@ const chapters = [
     "抛物线常见二级结论", "联解大题方法论", "弦长、联根判别式", "定点问题", "定线问题", "条件翻译大总结", "解析大题硬思想总结", "阿基米德三角形问题", "常用二级结论汇总", "导数的基本概念、常见函数的导数",
     "导数的四则运算法则", "复合函数求导法则", "导数与切线问题汇总", "导数的运用: 单调性、极值", "利用导数研究复杂函数", "含参函数的单调性讨论", "隐零点问题", "导数放缩常见技巧", "端点效应", "导数含参零点问题",
     "拐点问题之“拐点成点”", "极值点偏移失效应对策略", "极值点偏移核心题型", "极值点偏移进阶题型", "同构思想", "指对同构", "加法与乘法+排列与组合", "排列组合进阶", "二项式定理", "条件概率",
-    "全概率公式", "离散型随机变量分布列与数字特征", "二项分布", "超几何分布", "正态分布", "概率最值问题", "成对数据的线性相关性", "一元线性回归模型", "独立性检验", "综合复习与期末冲刺",
-    // 后续190章按你的需求补充即可，格式同上
+    "全概率公式", "离散型随机变量分布列与数字特征", "二项分布", "超几何分布", "正态分布", "概率最值问题", "成对数据的线性相关性", "一元线性回归模型", "独立性检验",
 ];
 
 // 题目列表（50道题，按章节分类）
-const questions = [ { id: 1, ch: 1, q: '已知 $x+y=3$，$x^2+y^2=5$，则 $xy$ 的值为（ ）', opts: ['A. $1$', 'B. $2$', 'C. $3$', 'D. $4$'], ans: 'B', ana: '由 $(x+y)^2 = x^2+y^2+2xy$，代入得 $3^2 = 5 + 2xy$，解得 $xy=2$。' },
+const questions = [
+ { id: 1, ch: 1, q: '已知 $x+y=3$，$x^2+y^2=5$，则 $xy$ 的值为（ ）', opts: ['A. $1$', 'B. $2$', 'C. $3$', 'D. $4$'], ans: 'B', ana: '由 $(x+y)^2 = x^2+y^2+2xy$，代入得 $3^2 = 5 + 2xy$，解得 $xy=2$。' },
     { id: 2, ch: 1, q: '分解因式 $x^3 - 8$ 的结果是（ ）', opts: ['A. $(x-2)(x^2+2x+4)$', 'B. $(x-2)(x^2-2x+4)$', 'C. $(x+2)(x^2-2x+4)$', 'D. $(x-2)^3$'], ans: 'A', ana: '利用立方差公式 $a^3-b^3=(a-b)(a^2+ab+b^2)$。' },
     { id: 3, ch: 1, q: '已知 $\\frac{1}{x} - \\frac{1}{y} = 3$，则分式 $\\frac{x+2xy-y}{2x-xy-2y}$ 的值为（ ）', opts: ['A. $\\frac{1}{7}$', 'B. $-\\frac{1}{7}$', 'C. $7$', 'D. $-7$'], ans: 'A', ana: '分子分母同除以 $xy$，结合已知条件代换。' },
     { id: 4, ch: 1, q: '若 $\\triangle ABC$ 的三边 $a,b,c$ 满足 $a^2+b^2+c^2 = ab+bc+ca$，则形状是（ ）', opts: ['A. 等腰三角形', 'B. 直角三角形', 'C. 等边三角形', 'D. 等腰直角三角形'], ans: 'C', ana: '等式两边同乘2，配方得 $(a-b)^2+(b-c)^2+(c-a)^2=0$。' },
@@ -242,7 +221,6 @@ const questions = [ { id: 1, ch: 1, q: '已知 $x+y=3$，$x^2+y^2=5$，则 $xy$ 
     { id: 48, ch: 10, q: '下列命题中，真命题是（ ）', opts: ['A. $\\exists x \\in \\mathbb{R}, x^2 + x + 1 = 0$', 'B. $\\forall x \\in \\mathbb{R}, x^2 \\ge x$', 'C. $\\exists x \\in \\mathbb{R}, \\sin x + \\cos x = 2$', 'D. $\\forall x \\in (0, +\\infty), e^x > x + 1$'], ans: 'D', ana: 'A无解；B中x=0.5不成立；C中最大值为$\\sqrt{2}$；D由导数易证。' },
     { id: 49, ch: 10, q: '已知 $p: \\forall x \\in [1, 2], x^2 - a \\ge 0$，$q: \\exists x \\in \\mathbb{R}, x^2 + 2ax + 2 - a = 0$。若 $p \\land q$ 为真，则 $a$ 范围是（ ）', opts: ['A. $a \\le -2$ 或 $a = 1$', 'B. $a \\le -2$ 或 $1 \\le a \\le 2$', 'C. $a \\ge 1$', 'D. $-2 \\le a \\le 1$'], ans: 'A', ana: '分别求出 $p$ 真和 $q$ 真的范围，取交集。注意 $p$ 真需 $a \\le (x^2)_{min}$。' },
     { id: 50, ch: 10, q: '若“$\\forall x \\in [1, 2], x^2 - a \\le 0$”为真命题，则 $a$ 范围是（ ）', opts: ['A. $a \\ge 4$', 'B. $a \\le 4$', 'C. $a \\ge 1$', 'D. $a \\le 1$'], ans: 'A', ana: '需 $a \\ge (x^2)_{max}$ 在 $[1, 2]$ 上恒成立。' }
-
 ];
 
 // ================= 2. 存储管理（核心：所有记录都存在本地，支持恢复码导出） =================
@@ -458,6 +436,7 @@ function renderChapter(chId) {
     allList.innerHTML = html;
     
     showView("all");
+    // 重新渲染数学公式（如果后续加了MathJax，这里需要调用MathJax.typeset()）
 }
 
 // 渲染题目卡片（显示完成状态）
@@ -736,6 +715,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const code = generateRecoveryCode();
             navigator.clipboard.writeText(code).catch(() => {
                 sessionStorage.setItem("auto_recovery_code", code);
+                <script>
+// 等页面加载完再渲染公式，绝对不卡交互
+window.addEventListener('load', function() {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+    script.async = true; // 异步加载，不卡页面
+    window.MathJax = { tex: { inlineMath: [['$', '$']] }, startup: { typeset: false } };
+    script.onload = () => MathJax.typeset(['.q-title', '.answer-box']); // 只渲染题目和解析里的公式
+    document.body.appendChild(script);
+
             });
         }
     });
